@@ -38,14 +38,14 @@ function calculateGWA() {
 
   let gwa = totalUnits ? (weightedSum / totalUnits).toFixed(2) : "N/A";
 
-  // Avoid rounding off by converting to a string and using .substring()
+  // Ensure GWA has exactly two decimal places without rounding
   if (typeof gwa === "string" && gwa !== "N/A") {
     gwa = gwa.substring(0, gwa.indexOf(".") + 3);
   }
 
   let resultText = `Your GWA is: ${gwa}`;
 
-  // Display Dean's Lister status based on the GWA
+  // Display Dean's Lister honors based on the GWA
   if (parseFloat(gwa) >= 3.5) {
     resultText += " - 1st Honor Dean's Lister";
   } else if (parseFloat(gwa) >= 3.25) {
