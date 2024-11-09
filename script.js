@@ -9,7 +9,7 @@ function addGradeInput() {
   const gradeInput = document.createElement("div");
   gradeInput.className = "grade-input";
   gradeInput.innerHTML = `
-    <input type="number" placeholder="Grade" class="grade" min="1" max="100" step="0.01">
+    <input type="number" placeholder="Grade" class="grade" min="1" max="4" step="0.01">
     <input type="number" placeholder="Units" class="units" min="1" max="5" step="0.01">
     <button class="remove">Remove</button>
   `;
@@ -50,12 +50,17 @@ function calculateGWA() {
   let totalUnits = 0;
   let weightedSum = 0;
   let hasLowGrade = false; // Flag to check if there's a grade below 2.5
+  let isInvalidInput = false; // Flag to check for any invalid grade or unit entries
 
   for (let i = 0; i < grades.length; i++) {
     const grade = parseFloat(grades[i].value);
     const unit = parseFloat(units[i].value);
 
-    if (isNaN(grade) || isNaN(unit)) continue;
+    // Check for missing, out-of-range, or invalid inputs
+    if (isNaN(grade) || isNaN(unit) || grade < 1 || grade > 4 || unit < 1 || unit > 5) {
+      isInvalidInput = true;
+      continue;
+    }
 
     // Check if the grade is below 2.5
     if (grade < 2.5) {
@@ -64,6 +69,12 @@ function calculateGWA() {
 
     weightedSum += grade * unit;
     totalUnits += unit;
+  }
+
+  // Alert if any invalid input is found
+  if (isInvalidInput) {
+    alert("Please enter valid numbers for all Grades (1-4) and Units (1-5) before calculating.");
+    return; // Stop calculation if there are invalid inputs
   }
 
   let gwa = totalUnits ? (weightedSum / totalUnits).toFixed(2) : "N/A";
@@ -86,7 +97,7 @@ function calculateGWA() {
     document.getElementById("announcement").textContent = "Congratulations! 2nd Honor Dean's Lister";
     startConfetti();
   } else if (parseFloat(gwa) >= 3.25 && hasLowGrade) {
-    resultText += " - Cannot be Dean's Lister due to a grade below 2.5";
+    resultText += " - Cannot be a Dean's Lister due to a grade below 2.5";
   } else {
     resultText += " - Passing GWA";
   }
