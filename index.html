@@ -12,20 +12,26 @@
     <h1>GWA Calculator</h1>
     <div id="grade-container">
       <div class="grade-input">
-        <input type="number" placeholder="Grade" class="grade" min="1" max="100" step="0.01">
-        <input type="number" placeholder="Units" class="units" min="1" max="5" step="0.01">
+        <input type="number" placeholder="Grade" class="grade" min="1" max="4" step="0.5">
+        <input type="number" placeholder="Units" class="units" min="1" max="5" step="1">
         <button class="remove">Remove</button>
       </div>
     </div>
-    <button id="add-grade">Add Another Subject</button>
+    <button id="add-grade">Add Another Course</button>
   </div>
+
   <div class="container2">
     <button id="calculate-gwa">Calculate GWA</button>
     <h2 id="result"></h2>
   </div>
 
+  <div id="overlay" class="hidden">
+    <div id="announcement">Congratulations!</div>
+    <div id="confetti"></div>
+  </div>
+  
   <footer>
-    <p>Hello! I'm Adrian Calongcalong, currently a 2nd Year CpE student at NU-Laguna by the time I made this. I hope this would be helpful for everyone.   |    Property of Alpha Rubot </p>
+    <p>Hello! I'm Adrian Calongcalong, currently a 2nd Year CpE student at NU-Laguna by the time I made this. I hope this would be helpful for everyone.   |    Property of Alpha Rubot </p>
   </footer>
 
   <script src="script.js"></script>
