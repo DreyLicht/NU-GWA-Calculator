@@ -74,20 +74,20 @@ function calculateGWA() {
   let resultText = `Your GWA is: ${gwa}`;
   const overlay = document.getElementById("overlay");
 
-  // If any grade is below 2.5, the user cannot be a Dean's Lister
-  if (hasLowGrade) {
-    resultText += " - Cannot be a Dean's Lister due to a grade below 2.5";
-  } else if (parseFloat(gwa) >= 3.5) {
+  // Determine the appropriate status message based on GWA and grade requirements
+  if (parseFloat(gwa) >= 3.5 && !hasLowGrade) {
     resultText += " - 1st Honor Dean's Lister";
     overlay.classList.add("active");
     document.getElementById("announcement").textContent = "Congratulations! 1st Honor Dean's Lister";
     startConfetti();
-  } else if (parseFloat(gwa) >= 3.25) {
+  } else if (parseFloat(gwa) >= 3.25 && !hasLowGrade) {
     resultText += " - 2nd Honor Dean's Lister";
     overlay.classList.add("active");
     document.getElementById("announcement").textContent = "Congratulations! 2nd Honor Dean's Lister";
     startConfetti();
-  } else if (parseFloat(gwa) < 3.25) {
+  } else if (parseFloat(gwa) >= 3.25 && hasLowGrade) {
+    resultText += " - Cannot be Dean's Lister due to a grade below 2.5";
+  } else {
     resultText += " - Passing GWA";
   }
 
