@@ -6,6 +6,7 @@ let confettiInterval; // Variable to control confetti interval
 function addGradeInput() {
   const gradeContainer = document.getElementById("grade-container");
 
+  // Create the grade input container with fields and remove button
   const gradeInput = document.createElement("div");
   gradeInput.className = "grade-input";
   gradeInput.innerHTML = `
@@ -14,12 +15,28 @@ function addGradeInput() {
     <button class="remove">Remove</button>
   `;
 
-  gradeInput.querySelector(".remove").addEventListener("click", function() {
-    gradeContainer.removeChild(gradeInput);
-  });
-
-  gradeContainer.appendChild(gradeInput);
+  // Append the new input fields to the grade container
+  gradeContainer.appendChild(gradeInput); 
 }
+
+// Use event delegation for removing grade input fields
+document.getElementById("grade-container").addEventListener("click", function(event) {
+  if (event.target && event.target.classList.contains("remove")) {
+    const gradeContainer = document.getElementById("grade-container");
+    const gradeInputs = document.querySelectorAll(".grade-input");
+
+    // Check if there is more than one input field to remove
+    if (gradeInputs.length > 1) {
+      const gradeInput = event.target.closest(".grade-input");
+      if (gradeInput) {
+        gradeInput.remove(); // Remove the clicked input field div
+      }
+    } else {
+      // If there's only one input left, prevent its removal
+      alert("You cannot remove the last course.");
+    }
+  }
+});
 
 function startConfetti() {
   const confettiContainer = document.getElementById("confetti");
