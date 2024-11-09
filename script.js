@@ -9,8 +9,8 @@ function addGradeInput() {
   const gradeInput = document.createElement("div");
   gradeInput.className = "grade-input";
   gradeInput.innerHTML = `
-    <input type="number" placeholder="Grade" class="grade" min="1" max="4" step="0.01">
-    <input type="number" placeholder="Units" class="units" min="1" max="5" step="0.01">
+    <input type="number" placeholder="Grade" class="grade" min="1" max="4" step="0.5">
+    <input type="number" placeholder="Units" class="units" min="1" max="5" step="1">
     <button class="remove">Remove</button>
   `;
 
