@@ -7,8 +7,8 @@ function addGradeInput() {
   const gradeInput = document.createElement("div");
   gradeInput.className = "grade-input";
   gradeInput.innerHTML = `
-    <input type="number" placeholder="Grade" class="grade" min="1" max="100">
-    <input type="number" placeholder="Units" class="units" min="1" max="5">
+    <input type="number" placeholder="Grade" class="grade" min="1" max="100" step="0.01">
+    <input type="number" placeholder="Units" class="units" min="1" max="5" step="0.01">
     <button class="remove">Remove</button>
   `;
   
@@ -36,6 +36,21 @@ function calculateGWA() {
     totalUnits += unit;
   }
 
-  const gwa = totalUnits ? (weightedSum / totalUnits).toFixed(2) : "N/A";
-  document.getElementById("result").textContent = `Your GWA is: ${gwa}`;
+  let gwa = totalUnits ? (weightedSum / totalUnits).toFixed(2) : "N/A";
+
+  // Avoid rounding off by converting to a string and using .substring()
+  if (typeof gwa === "string" && gwa !== "N/A") {
+    gwa = gwa.substring(0, gwa.indexOf(".") + 3);
+  }
+
+  let resultText = `Your GWA is: ${gwa}`;
+
+  // Display Dean's Lister status based on the GWA
+  if (parseFloat(gwa) >= 3.5) {
+    resultText += " - 1st Honor Dean's Lister";
+  } else if (parseFloat(gwa) >= 3.25) {
+    resultText += " - 2nd Honor Dean's Lister";
+  }
+
+  document.getElementById("result").textContent = resultText;
 }
